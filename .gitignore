@@ -1,0 +1,25 @@
+# OS files
+.DS_Store
+
+# Temporary editor files
+*.swp
+*.swo
+
+# Generated simulation and synthesis outputs
+*.log
+*.jou
+*.wlf
+*.vcd
+*.vvp
+*.out
+*.rpt
+*.qpf.bak
+*.qsf.bak
+db/
+incremental_db/
+simulation/
+work/
+
+# Python helpers
+__pycache__/
+*.pyc
