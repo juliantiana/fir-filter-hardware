@@ -1,0 +1,12 @@
+Power Analyzer Status : Successful - Wed Mar 25 06:46:54 2026
+Quartus Prime Version : 21.1.0 Build 842 10/21/2021 SJ Lite Edition
+Revision Name : fir_filter_l3_reduced
+Top-level Entity Name : fir_filter_l3_reduced
+Family : Cyclone V
+Device : 5CGXFC9E6F35C7
+Power Models : Final
+Total Thermal Power Dissipation : 848.44 mW
+Core Dynamic Thermal Power Dissipation : 310.67 mW
+Core Static Thermal Power Dissipation : 522.74 mW
+I/O Thermal Power Dissipation : 15.02 mW
+Power Estimation Confidence : Low: user provided insufficient toggle rate data
