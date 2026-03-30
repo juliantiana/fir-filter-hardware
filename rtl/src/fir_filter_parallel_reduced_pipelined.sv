@@ -13,6 +13,10 @@ module fir_filter_parallel_reduced_pipelined #(
     output logic signed [SAMPLE_WIDTH-1:0]                 sample_out [0:PARALLELISM-1]
 );
 
+    // Shared pipelined reduced-complexity block engine. The arithmetic is the
+    // same symmetry-aware flow as fir_filter_parallel_reduced, but the product
+    // and reduction steps are split across registered pipeline stages.
+
     import fir_coeffs_pkg::*;
 
     localparam int HALF_TAPS = FIR_NUM_TAPS / 2;
@@ -388,6 +392,10 @@ module fir_filter_parallel_reduced_pipelined_stream #(
     output logic                           sample_out_valid,
     output logic signed [SAMPLE_WIDTH-1:0] sample_out
 );
+
+    // Scalar wrapper for the pipelined reduced engine. It gathers scalar input
+    // samples into PARALLELISM-wide blocks and drains the pipelined block
+    // results through a small FIFO back to the scalar output interface.
 
     typedef logic signed [SAMPLE_WIDTH-1:0] sample_t;
 

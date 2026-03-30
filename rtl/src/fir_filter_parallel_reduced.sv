@@ -13,6 +13,10 @@ module fir_filter_parallel_reduced #(
     output logic signed [SAMPLE_WIDTH-1:0]                 sample_out [0:PARALLELISM-1]
 );
 
+    // Shared reduced-complexity block engine used by the L=2 and L=3 wrappers.
+    // It accepts PARALLELISM samples at once and uses symmetric tap pairing to
+    // replace two multiplies with one pre-add plus one shared multiply.
+
     import fir_coeffs_pkg::*;
 
     localparam int HALF_TAPS = FIR_NUM_TAPS / 2;
@@ -229,6 +233,10 @@ module fir_filter_parallel_reduced_stream #(
     output logic                           sample_out_valid,
     output logic signed [SAMPLE_WIDTH-1:0] sample_out
 );
+
+    // Scalar wrapper for the reduced block engine. It gathers scalar input
+    // samples into PARALLELISM-wide blocks, then serializes the block outputs
+    // back onto the shared one-sample-per-cycle interface.
 
     typedef logic signed [SAMPLE_WIDTH-1:0] sample_t;
 

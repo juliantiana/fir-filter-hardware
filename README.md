@@ -4,13 +4,19 @@ This repository contains an optimized low-pass FIR filter design study that aggr
 
 ## Start Here
 
+- Report: `docs/project_report.md`
 - MATLAB tradeoff search: [`matlab/search_optimal_assignment_tradeoff.m`](matlab/search_optimal_assignment_tradeoff.m)
 - Optimized coefficient design: [`matlab/design_fir_equiripple_optimized.m`](matlab/design_fir_equiripple_optimized.m)
-- Final chosen coefficient files: [`data/coeffs/final/`](data/coeffs/final/)
+- Final coefficient report and files: [`data/coeffs/final/`](data/coeffs/final/)
+
 - Locked coefficient package used by RTL: [`rtl/include/fir_coeffs_pkg.sv`](rtl/include/fir_coeffs_pkg.sv)
-- Key pipelined parallel RTL: [`rtl/src/fir_filter_parallel_reduced_pipelined.sv`](rtl/src/fir_filter_parallel_reduced_pipelined.sv)
+- Top-level RTL architectures: [`rtl/src/fir_filter.sv`](rtl/src/fir_filter.sv), [`rtl/src/fir_filter_pipelined.sv`](rtl/src/fir_filter_pipelined.sv), [`rtl/src/fir_filter_l2_reduced.sv`](rtl/src/fir_filter_l2_reduced.sv), [`rtl/src/fir_filter_l3_reduced.sv`](rtl/src/fir_filter_l3_reduced.sv), [`rtl/src/fir_filter_pipelined_l3_reduced.sv`](rtl/src/fir_filter_pipelined_l3_reduced.sv)
+- Shared reduced-complexity engines: [`rtl/src/fir_filter_parallel_reduced.sv`](rtl/src/fir_filter_parallel_reduced.sv), [`rtl/src/fir_filter_parallel_reduced_pipelined.sv`](rtl/src/fir_filter_parallel_reduced_pipelined.sv)
+
 - Main regression testbench: [`tb/fir_filter_required_regression_tb.sv`](tb/fir_filter_required_regression_tb.sv)
-- Current Quartus result snapshot: [`docs/quartus_results_snapshot.md`](docs/quartus_results_snapshot.md)
+
+- Raw Quartus implementation results: [`data/results/quartus/`](data/results/quartus/)
+- Report figures and plots: [`assets/images/`](assets/images/)
 
 ## Optimized Design Point
 
@@ -38,7 +44,7 @@ Only pipelined designs meet 100 MHz. `fir_filter_pipelined_l3_reduced` delivers 
 
 ## Repository Layout
 
-- [`docs/`](docs/) concise Quartus result snapshots
+- `docs/` report and images
 - [`matlab/`](matlab/) filter-design and tradeoff-search scripts
 - [`rtl/include/`](rtl/include/) generated shared packages such as FIR coefficients
 - [`rtl/src/`](rtl/src/) synthesis-target SystemVerilog modules
@@ -46,18 +52,11 @@ Only pipelined designs meet 100 MHz. `fir_filter_pipelined_l3_reduced` delivers 
 - [`data/coeffs/final/`](data/coeffs/final/) final coefficient files used by the RTL
 - [`data/results/`](data/results/) consolidated Quartus result summaries
 - [`vendor/quartus/`](vendor/quartus/) checked-in timing constraint snapshot used by the saved FPGA results
-- [`scripts/`](scripts/) helper scripts such as coefficient-package generation
+- [`scripts/`](scripts/) helper scripts
 - [`assets/images/`](assets/images/) report figures and plots
 
 ## Structure Notes
 
 - Generated coefficient integers live in [`data/coeffs/final/`](data/coeffs/final/), while the RTL-consumable package lives in [`rtl/include/fir_coeffs_pkg.sv`](rtl/include/fir_coeffs_pkg.sv).
+- The most important published source files are the five top-level RTL modules in [`rtl/src/`](rtl/src/) plus the shared regression testbench in [`tb/fir_filter_required_regression_tb.sv`](tb/fir_filter_required_regression_tb.sv).
 - Quartus implementation summaries are consolidated under [`data/results/quartus/`](data/results/quartus/) so readers do not need to navigate multiple result trees.
-- [`docs/quartus_results_snapshot.md`](docs/quartus_results_snapshot.md) keeps the checked-in implementation snapshot.
-- Detailed local tool-launch instructions are intentionally kept outside this published repo.
-
-## Status
-
-- MATLAB optimized design, coefficient export, RTL, shared verification, and Quartus results are all present.
-- Two architectures meet 100 MHz timing: serial pipelined and parallel pipelined L3 reduced.
-- The parallel pipelined L3 design is the highest-throughput timing-closed architecture at 310 MSPS.
