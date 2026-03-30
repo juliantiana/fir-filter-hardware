@@ -13,6 +13,7 @@
 *.vvp
 *.out
 *.rpt
+!data/results/quartus/**/*.rpt
 *.qpf.bak
 *.qsf.bak
 db/
