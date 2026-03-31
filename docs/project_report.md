@@ -72,17 +72,12 @@ Table 1 gives a more quantitative view of the quantization error.
 
 | Metric | Value |
 | --- | ---: |
-| Quantization step (`Q1.19`) | `1.907e-6` |
 | Max absolute coefficient error | `9.36e-7` |
-| Mean absolute coefficient error | `5.10e-7` |
-| RMS coefficient error | `5.74e-7` |
 | Coefficient error SNR | `94.75 dB` |
-| DC gain error | `-1.33e-5` |
 | Passband ripple change | `+8.73e-5 dB` |
 | Stopband peak degradation | `+1.30 dB` |
-| Max passband magnitude difference | `0.00024 dB` |
 
-The coefficient error is small relative to the `Q1.19` step size. The worst coefficient error stays below half an LSB, the DC gain change is negligible, and the passband ripple shift is essentially invisible at normal plot scale. The main measurable quantization effect is the `1.30 dB` loss in stopband margin, but the final quantized response still clears the `80 dB` requirement.
+The coefficient error is small relative to the `Q1.19` step size. The worst coefficient error stays below half an LSB, the coefficient error SNR is high, and the passband ripple shift is essentially invisible at normal plot scale. The main measurable quantization effect is the `1.30 dB` loss in stopband margin, but the final quantized response still clears the `80 dB` requirement.
 
 Figure 5 also shows that the quantized coefficients retain the expected symmetry about the center tap, which is important for the reduced-complexity architectures.
 
@@ -225,4 +220,6 @@ The serial pipelined design shows that distributing the arithmetic across regist
 
 In short, the optimized project covers the full assignment flow: MATLAB FIR design, quantization, overflow handling, multiple hardware architectures, and FPGA implementation results. If a simpler timing-closed design is preferred, `fir_filter_pipelined` is the better choice. If throughput is the main goal, `fir_filter_pipelined_l3_reduced` is the strongest result in this set.
 
-For a GitHub-facing presentation, that last point is probably the clearest summary of the work: the project does not stop at filter design, but carries one optimized coefficient set all the way through fixed-point hardware implementation, verification, and FPGA results.
+## 8. Disclosure
+
+AI tools were used throughout this project for editing and code assistance. All final technical content, design choices, reported results, and submitted materials were reviewed, checked, and approved by the author.
